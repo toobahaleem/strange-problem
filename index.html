@@ -111,16 +111,43 @@
         cursor: pointer;
     }
 
-    .buy-now {
-        background: #ff3b3b;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 12px;
-        text-align: center;
-        margin-top: 10px;
-        font-weight: bold;
-        cursor: pointer;
-        animation: shake 1.2s infinite;
+  .buy-now {
+    background: #ff3b3b;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 14px;
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    animation: shake 1.2s infinite;
+    font-size: 15px;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 0 rgba(255, 59, 59, 0.6);
+}
+
+.buy-now:hover {
+    box-shadow: 0 0 12px rgba(255, 59, 59, 0.7);
+}
+
+.buy-now:active {
+    transform: scale(0.92);
+    animation: none;
+    box-shadow: 0 0 4px rgba(255, 59, 59, 0.5);
+}
+function initBuyNow() {
+    const buyNow = document.querySelector(".buy-now");
+    if (!buyNow) return;
+
+    buyNow.addEventListener("click", () => {
+        buyNow.textContent = "Redirecting...";
+        buyNow.style.animation = "none";
+        buyNow.style.transform = "scale(0.95)";
+        setTimeout(() => {
+            window.location.href = "checkout.html";
+        }, 900);
+    });
+
     }
 
     @keyframes shake {

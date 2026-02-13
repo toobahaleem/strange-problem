@@ -1,538 +1,228 @@
-body {
-    margin: 0;
-    background: linear-gradient(180deg, #dcdcdc, #f5f5f5);
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    transition: background 0.3s;
-    background-attachment: fixed;
-    background-size: cover;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Scroll</title>
 
-body.dark {
-    background: linear-gradient(180deg, #050505, #222);
-    color: #eee;
-}
-
-.center {
-    text-align: center;
-    color: #333;
-}
-
-body.dark .center {
-    color: #eee;
-}
-
-.toggle-dark {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #000;
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s;
-    z-index: 10;
-}
-
-.toggle-dark:hover {
-    opacity: 0.8;
-}
-
-.phone {
-    width: 360px;
-    height: 700px;
-    background: white;
-    border-radius: 40px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.25);
-    overflow: hidden;
-    border: 8px solid #000;
-    position: relative;
-    transition: background 0.3s, border-color 0.3s;
-}
-
-body.dark .phone {
-    background: #222;
-    border-color: #444;
-}
-
-.feed {
-    height: 100%;
-    overflow-y: scroll;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.post {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    padding: 10px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 0.8s forwards;
-}
-
-body.dark .post {
-    background: #333;
-    border-color: #555;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+<style>
+    body {
+        background: #e9e9e9;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
+        transition: background 0.3s;
     }
-}
 
-.username {
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
+    body.dark {
+        background: #111;
+        color: #eee;
+    }
 
-.image {
-    width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, #ccc, #eee);
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
+    .toggle-dark {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #000;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s;
+    }
 
-body.dark .image {
-    background: linear-gradient(135deg, #555, #777);
-}
+    .toggle-dark:hover {
+        opacity: 0.8;
+    }
 
-.caption {
-    font-size: 14px;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
+    .phone {
+        width: 360px;
+        height: 700px;
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        overflow: hidden;
+        border: 8px solid #000;
+        position: relative;
+        transition: background 0.3s;
+    }
 
-.actions {
-    display: flex;
-    gap: 15px;
-    font-size: 18px;
-    cursor: pointer;
-    user-select: none;
-    margin-bottom: 6px;
-}
+    body.dark .phone {
+        background: #222;
+        border-color: #444;
+    }
 
-.actions span {
-    transition: transform 0.15s;
-}
+    .feed {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 10px;
+    }
 
-.comments-toggle {
-    font-size: 12px;
-    color: #555;
-    cursor: pointer;
-    margin-bottom: 4px;
-}
+    .post {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        padding: 10px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s forwards;
+    }
 
-body.dark .comments-toggle {
-    color: #ccc;
-}
+    body.dark .post {
+        background: #333;
+        border-color: #555;
+    }
 
-.comments {
-    display: none;
-    font-size: 12px;
-    color: #444;
-}
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-body.dark .comments {
-    color: #ddd;
-}
+    .username {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
 
-.comment-line {
-    margin-bottom: 3px;
-}
+    .image {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(135deg, #ccc, #eee);
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
 
-.buy-now {
-    background: #ff3b3b;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 12px;
-    text-align: center;
-    margin-top: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    animation: shake 1.2s infinite;
-    font-size: 14px;
-}
+    body.dark .image {
+        background: linear-gradient(135deg, #555, #777);
+    }
 
-@keyframes shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-3px); }
-    40% { transform: translateX(3px); }
-    60% { transform: translateX(-3px); }
-    80% { transform: translateX(3px); }
-    100% { transform: translateX(0); }
-}
+    .caption {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
 
-.button {
-    background: #000;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 20px;
-}
+    .actions {
+        display: flex;
+        gap: 15px;
+        font-size: 18px;
+        cursor: pointer;
+    }
 
-.button:hover {
-    opacity: 0.85;
-}
+    .buy-now {
+        background: #ff3b3b;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        animation: shake 1.2s infinite;
+    }
 
-.loading-container {
-    text-align: center;
-}
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        20% { transform: translateX(-3px); }
+        40% { transform: translateX(3px); }
+        60% { transform: translateX(-3px); }
+        80% { transform: translateX(3px); }
+        100% { transform: translateX(0); }
+    }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #ccc;
-    border-top-color: #000;
-    border-radius: 50%;
-    margin: 20px auto;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.checkout-box, .delivery-box {
-    background: #fff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    max-width: 360px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-body.dark .checkout-box,
-body.dark .delivery-box {
-    background: #222;
-    color: #eee;
-}
-
-.checkout-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.checkout-line {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.checkout-total {
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.small-note {
-    font-size: 11px;
-    color: #777;
-}
-
-body.dark .small-note {
-    color: #aaa;
-}
-// Shared dark mode toggle
-function initDarkMode() {
-    const toggle = document.querySelector(".toggle-dark");
-    if (!toggle) return;
-    toggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-    });
-}
-
-// Parallax background (type A: background moves with scroll)
-function initParallax(feedSelector) {
-    const feed = document.querySelector(feedSelector);
-    if (!feed) return;
-    feed.addEventListener("scroll", () => {
-        const offset = feed.scrollTop * 0.2;
-        document.body.style.backgroundPosition = `center ${-offset}px`;
-    });
-}
-
-// Likes + sound
-function initLikes() {
-    const likeSound = document.getElementById("likeSound");
-    document.querySelectorAll(".like").forEach(btn => {
-        btn.addEventListener("click", () => {
-            btn.style.transform = "scale(1.3)";
-            if (likeSound) {
-                likeSound.currentTime = 0;
-                likeSound.play();
-            }
-            setTimeout(() => btn.style.transform = "scale(1)", 150);
-        });
-    });
-}
-
-// Expandable comments
-function initComments() {
-    document.querySelectorAll(".comments-toggle").forEach(toggle => {
-        toggle.addEventListener("click", () => {
-            const comments = toggle.nextElementSibling;
-            if (!comments) return;
-            const isOpen = comments.style.display === "block";
-            comments.style.display = isOpen ? "none" : "block";
-            toggle.textContent = isOpen ? "View comments" : "Hide comments";
-        });
-    });
-}
-
-// BUY NOW redirect
-function initBuyNow() {
-    const buyNow = document.querySelector(".buy-now");
-    if (!buyNow) return;
-    buyNow.addEventListener("click", () => {
-        buyNow.textContent = "Redirecting...";
-        buyNow.style.animation = "none";
-        setTimeout(() => {
-            window.location.href = "checkout.html";
-        }, 1000);
-    });
-}
-
-// Loading screen redirect
-function initLoading() {
-    const loading = document.querySelector(".loading-container");
-    if (!loading) return;
-    setTimeout(() => {
-        window.location.href = "feed.html";
-    }, 2000);
-}
-
-// Checkout confirm
-function initCheckout() {
-    const confirmBtn = document.getElementById("confirmOrder");
-    if (!confirmBtn) return;
-    confirmBtn.addEventListener("click", () => {
-        confirmBtn.disabled = true;
-        confirmBtn.textContent = "Processing...";
-        setTimeout(() => {
-            window.location.href = "delivery.html";
-        }, 1500);
-    });
-}
-
-// Init per page
-document.addEventListener("DOMContentLoaded", () => {
-    initDarkMode();
-    initParallax(".feed");
-    initLikes();
-    initComments();
-    initBuyNow();
-    initLoading();
-    initCheckout();
-});
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Scroll – Loading</title>
-<link rel="stylesheet" href="style.css">
+    .final-screen {
+        padding: 20px;
+        text-align: center;
+        font-size: 18px;
+        display: none;
+    }
+</style>
 </head>
-<body>
 
-<div class="toggle-dark">Dark Mode</div>
-
-<div class="loading-container center">
-    <h1>the scroll</h1>
-    <p>Fetching your feed...</p>
-    <div class="spinner"></div>
-    <p class="small-note">Simulating an app loading screen.</p>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Scroll – Feed</title>
-<link rel="stylesheet" href="style.css">
-</head>
 <body>
 
 <div class="toggle-dark">Dark Mode</div>
 
 <div class="phone">
-    <div class="feed" id="feed"></div>
+    <div class="feed" id="feed">
+
+        <!-- POSTS GENERATED BELOW -->
+        <!-- Each post includes: username, image, caption, like button -->
+
+    </div>
+
+    <div class="final-screen" id="finalScreen">
+        📦 Your parcel has arrived.  
+        <br><br>
+        Social media won this round.
+    </div>
 </div>
 
 <audio id="likeSound">
     <source src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" type="audio/ogg">
 </audio>
 
-<script src="script.js"></script>
 <script>
     const posts = [
-        {
-            user: "@trendingnow",
-            text: "I have a tendency of falling victim to the social media propaganda of the latest “hot” and “trending” products that most people will scroll by, without so much as glancing twice.",
-            comments: ["@scrollfatigue: this hits too close to home", "@adalgorithm: we know what you like 😉"]
-        },
-        {
-            user: "@aestheticlife",
-            text: "I stare and stare, the blue light of my phone boring into my eyes. It’s hypnotic almost.",
-            comments: ["@eyestrain: blue light supremacy", "@doomscroll: can't look away."]
-        },
-        {
-            user: "@fantasyme",
-            text: "Contemplating on all the ways this said product would help me, I play out different scenes starring me and the hot new bombshell that entered my life.",
-            comments: ["@maincharacter: main character energy", "@futureme: this will fix everything... right?"]
-        },
-        {
-            user: "@existentialthoughts",
-            text: "At this point, I have convinced myself that my life is useless. Like seriously…what have I been doing all this time?",
-            comments: ["@spiral: the existential crisis is real", "@breathe: you're doing more than you think."]
-        },
-        {
-            user: "@unboxtherapy",
-            text: "If I’m still finding it hard to press the obnoxious ‘BUY NOW’ button, I then proceed to binge watch any satisfying YouTube videos of people unboxing, the overly excited faces along with the ‘oohs’ and ‘aahs’, practically making me jump the gun.",
-            comments: ["@unboxfan: unboxing videos are my weakness", "@asmrlover: the tape cutting sounds tho."]
-        },
-        {
-            user: "@responsibleadult",
-            text: "People like to call me ‘responsible’ just because I choose to ‘sleep on it’.",
-            comments: ["@adulting: this is peak maturity", "@overthinker: sleeping on it = thinking about it all night."]
-        },
-        {
-            user: "@financialtrauma",
-            text: "But there is a difference between being responsible and avoiding ‘financial ruin’. No one knows about how a first job at eighteen empties a bank account faster than it fills up.",
-            comments: ["@brokeat18: I felt this in my wallet", "@payday: money really said 'blink and I'm gone'."]
-        },
-        {
-            user: "@impulsebuyer",
-            text: "As if there was a ticking time bomb about to go off, I press the ‘BUY NOW’ button and throw my phone down, unable to confront with the damage I have caused at my own discretion.",
-            comments: ["@checkoutpanic: the immediate regret is unmatched", "@cartabandoner: I usually bail before this point."]
-        },
-        {
-            user: "@regretcentral",
-            text: "Was it necessary? Do I really need this? How is this going to improve my life?",
-            comments: ["@innercritic: excellent questions tbh", "@justification: I'm sure you'll find a reason."]
-        },
-        {
-            user: "@maslow",
-            text: "Last time I checked, Maslow didn't have the latest social media hyped product on his hierarchy.",
-            comments: ["@psych101: Maslow could never", "@needs: wifi should be on that pyramid though."]
-        },
-        {
-            user: "@innerdebate",
-            text: "Whilst the order's being processed, I continue to play a game of tennis in my head.",
-            comments: ["@brainpong: back and forth forever", "@decisionfatigue: exhausting sport."]
-        },
-        {
-            user: "@deliveryday",
-            text: "After a grueling five days of living in my head, I hear a knock on the door.",
-            comments: ["@doorbell: the most suspenseful sound", "@package: it's showtime."]
-        },
-        {
-            user: "@postmanjoy",
-            text: "“Parcel for you miss!” the postman cheerily exclaims as he hands the brown cardboard box over to me.",
-            comments: ["@postielove: shoutout to cheerful delivery people", "@maincharacter: NPC with great energy."]
-        },
-        {
-            user: "@realitycheck",
-            text: "I close the door and stare at this 'larger than I thought' box. The size is making me anxious, making me second guess the purchase altogether.",
-            comments: ["@boxanxiety: bigger box, bigger guilt", "@storage: where is this even going to go?"]
-        },
-        {
-            user: "@socialmediawins",
-            text: "Instead I begrudgingly accept my defeat. Social media won this round.",
-            comments: ["@algorithm: see you next round ;)", "@selfaware: at least you know what's happening."]
-        }
+        ["@trendingnow", "I have a tendency of falling victim to the social media propaganda of the latest 'hot' and 'trending' products."],
+        ["@aestheticlife", "I stare and stare, the blue light of my phone boring into my eyes."],
+        ["@fantasyme", "Contemplating all the ways this product would help me, I play out different scenes starring me and the hot new bombshell."],
+        ["@existentialthoughts", "At this point, I have convinced myself that my life is useless."],
+        ["@unboxtherapy", "I binge watch satisfying YouTube videos of people unboxing, the 'oohs' and 'aahs' practically making me jump the gun."],
+        ["@responsibleadult", "People like to call me responsible because I choose to sleep on it."],
+        ["@financialtrauma", "There is a difference between being responsible and avoiding financial ruin."],
+        ["@impulsebuyer", "As if there was a ticking time bomb, I press the BUY NOW button."],
+        ["@regretcentral", "Was it necessary? Do I really need this?"],
+        ["@maslow", "Maslow didn't have the latest social media hyped product on his hierarchy."],
+        ["@innerdebate", "I continue to play a game of tennis in my head."],
+        ["@deliveryday", "After five days, I hear a knock on the door."],
+        ["@postmanjoy", "Man, with the amount of enthusiasm radiating off this guy, it makes me feel like I won the lottery."],
+        ["@realitycheck", "The size of the box is making me anxious."],
+        ["@socialmediawins", "Social media won this round."]
     ];
 
     const feed = document.getElementById("feed");
+    const likeSound = document.getElementById("likeSound");
 
     posts.forEach((p, i) => {
         const post = document.createElement("div");
         post.className = "post";
-        post.style.animationDelay = (i * 0.15) + "s";
-
-        const commentsHtml = p.comments.map(c => `<div class="comment-line">${c}</div>`).join("");
+        post.style.animationDelay = (i * 0.2) + "s";
 
         post.innerHTML = `
-            <div class="username">${p.user}</div>
+            <div class="username">${p[0]}</div>
             <div class="image"></div>
-            <div class="caption">${p.text}</div>
+            <div class="caption">${p[1]}</div>
             <div class="actions">
                 <span class="like">❤️</span>
                 <span>💬</span>
                 <span>🔗</span>
-            </div>
-            <div class="comments-toggle">View comments</div>
-            <div class="comments">
-                ${commentsHtml}
             </div>
             ${i === 7 ? '<div class="buy-now">BUY NOW</div>' : ""}
         `;
 
         feed.appendChild(post);
     });
+
+    document.querySelectorAll(".like").forEach(btn => {
+        btn.addEventListener("click", () => {
+            btn.style.transform = "scale(1.3)";
+            likeSound.play();
+            setTimeout(() => btn.style.transform = "scale(1)", 150);
+        });
+    });
+
+    document.querySelector(".toggle-dark").addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+    });
+
+    // Final screen reveal
+    setTimeout(() => {
+        document.getElementById("finalScreen").style.display = "block";
+    }, 15000);
 </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Scroll – Checkout</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<div class="toggle-dark">Dark Mode</div>
-
-<div class="checkout-box">
-    <div class="checkout-title">Checkout</div>
-    <div class="checkout-line"><strong>Item:</strong> The Hot New Bombshell Product</div>
-    <div class="checkout-line"><strong>From:</strong> Influencer Recommendation Feed</div>
-    <div class="checkout-line"><strong>Shipping:</strong> 5 business days (of overthinking)</div>
-    <div class="checkout-total">Total: £79.99</div>
-    <p class="small-note">Are you sure this will fix your life? (It probably won’t, but it might look nice.)</p>
-    <button class="button" id="confirmOrder">Confirm Purchase</button>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Scroll – Delivery</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="toggle-dark">Dark Mode</div>
-
-<div class="delivery-box center">
-    <h2>📦 Your parcel has arrived.</h2>
-    <p>You open the door. The box is larger than you imagined.</p>
-    <p>The excitement, the anxiety, the guilt, the tiny flicker of joy.</p>
-    <p><strong>Social media won this round.</strong></p>
-    <p class="small-note">Refresh the cycle anytime by going back to the feed.</p>
-    <button class="button" onclick="window.location.href='feed.html'">Back to Feed</button>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
